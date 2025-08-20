@@ -126,13 +126,12 @@ def new_process(offres, process):
             old_procs.append((comp,title, category, url))
     return(new_procs, old_procs)
 
-if __name__ == "__main__":
-    # 1) Scrape
-    offres = scrape_open_summer_internships()
-    procs = read_process_csv("processus_ouverts.csv")
-    newprocs, oldprocs=new_process(offres,procs)
-    if len(newprocs)>0:
-        mail=read_process_csv("email.csv")
-        send_email(newprocs,oldprocs,mail)
-        csv_file = ecriture_csv(offres)
-  
+
+offres = scrape_open_summer_internships()
+procs = read_process_csv("processus_ouverts.csv")
+newprocs, oldprocs=new_process(offres,procs)
+if len(newprocs)>0:
+    mail=read_process_csv("email.csv")
+    send_email(newprocs,oldprocs,mail)
+    csv_file = ecriture_csv(offres)
+
