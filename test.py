@@ -41,7 +41,7 @@ def scrape_open_summer_internships():
 
         browser.close()
     valid = [i for i in internships if isinstance(i, dict)]
-    print(i)
+    print(valid)
     open_offers = []
     for i in valid:
         if i.get("openingDate") is not None:
