@@ -54,10 +54,6 @@ def scrape_open_summer_internships():
     return open_offers
 
 def read_process_csv(csv_path):
-    """
-    Lit le fichier CSV et retourne une liste de dicts.
-    Chaque dict correspond à une ligne, avec pour clés les en-têtes de colonnes.
-    """
     processes=dict()
     with open(csv_path, mode="r", encoding="utf-8", newline="") as f:
         reader = csv.DictReader(f)
@@ -75,7 +71,6 @@ def ecriture_csv(open_offers, output_file="processus_ouverts.csv"):
     return output_file
 
 def send_email(open_offers, old_procs,mail, csv_path=None):
-    # Lecture des vars d'env
     SMTP_SERVER = os.getenv("SMTP_SERVER", "smtp.gmail.com")
     SMTP_PORT   = os.getenv("SMTP_PORT")
     SMTP_USER   = os.getenv("SMTP_USER")
@@ -83,14 +78,13 @@ def send_email(open_offers, old_procs,mail, csv_path=None):
     FROM_ADDR   = SMTP_USER
     raw_rows = mail
     TO_ADDRS  = [row['email'].strip() for row in raw_rows if row.get('email')]
-    # Préparation du message
     
-    body = "Voici la liste des summer internships:\n\n" + \
+    body = "Voici la liste des nouveaux Spring internships:\n\n" + \
            "\n".join(f"• {comp} – {title} - {category} - {url}" for comp, title, category, url in open_offers)
-    body+="\n\n Voici la liste des summer internships qui sont déjà ouverts:\n\n"+ \
+    body+="\n\n Voici la liste des Spring internships qui sont déjà ouverts:\n\n"+ \
            "\n".join(f"• {comp} – {title} - {category} - {url}\n" for comp, title, category, url in old_procs)
     msg = EmailMessage()
-    subject = "Nouveau Process ouverts"
+    subject = "Nouveaux Spring ouverts"
     msg["Subject"] = subject 
     msg["From"]    = FROM_ADDR
     msg["To"]      = ", ".join(TO_ADDRS)
