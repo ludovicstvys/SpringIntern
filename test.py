@@ -164,8 +164,6 @@ def send_email(open_offers, old_procs, mailing_list, csv_path=None):
 
     body = "Voici la liste des nouveaux Spring internships:\n\n" + \
            "\n".join(f"• {c} – {t} - {cat} - {u}" for c, t, cat, u in open_offers)
-    body += "\n\nVoici la liste des Spring internships qui sont déjà ouverts:\n\n" + \
-            "\n".join(f"• {c} – {t} - {cat} - {u}" for c, t, cat, u in old_procs)
 
     msg = EmailMessage()
     msg["Subject"] = "Nouveaux Spring ouverts"
